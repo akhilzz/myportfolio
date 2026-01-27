@@ -150,6 +150,19 @@ gsap.from('.glass-card', {
     ease: "power3.out"
 });
 
+// Mentorship Cards Animation
+gsap.from('#mentorship .glass-card', {
+    scrollTrigger: {
+        trigger: "#mentorship",
+        start: "top 80%",
+    },
+    x: -50,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.3,
+    ease: "power2.out"
+});
+
 // --- ANIMATION LOOP ---
 const animate = () => {
     requestAnimationFrame(animate);
