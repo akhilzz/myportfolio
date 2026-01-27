@@ -1,158 +1,330 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akhil S | Cinematic Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Import Map for Three.js -->
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    <title>Akhil C | Embedded & Full-Stack Developer</title>
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#6366f1',
+                        dark: '#0f172a',
+                        light: '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
             }
         }
     </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
 
-    <!-- GSAP CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-    <!-- Font for Cinematic Look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
 </head>
 
-<body>
+<body class="selection:bg-primary selection:text-white">
+
     <div id="canvas-container"></div>
 
-    <div id="ui-layer">
-        <!-- SCENE 1: INTRO (Identity) -->
-        <section class="scene" id="intro">
-            <div class="content centralized">
-                <h1 class="cinematic-title">AKHIL S</h1>
-                <p class="subtitle">Web • Desktop • Embedded (Learning Phase)</p>
-            </div>
-        </section>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-card px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            AKHIL.C
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium">
+            <a href="#hero" class="hover:text-primary transition-colors">Home</a>
+            <a href="#expertise" class="hover:text-primary transition-colors">Expertise</a>
+            <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+            <a href="#services" class="hover:text-primary transition-colors">Services</a>
+            <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+        </div>
+        <button class="md:hidden">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </nav>
 
-        <!-- SCENE 2: WEB DEVELOPMENT (Foundation) -->
-        <section class="scene" id="web-dev">
-            <div class="content panel-right">
-                <h2>Foundation</h2>
-                <p class="lead">"Started with the web — building interfaces and logic."</p>
-                <div class="tags">
-                    <span>HTML</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                    <span>React</span>
+    <!-- Sections Overlay -->
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center px-6 md:px-24">
+            <div class="max-w-4xl">
+                <h2 class="text-primary font-semibold tracking-widest mb-4 opacity-0 hero-fade">EMBEDDED SOFTWARE
+                    DEVELOPER</h2>
+                <h1 class="text-5xl md:text-8xl font-bold mb-6 opacity-0 hero-fade">Building the <span
+                        class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Future</span>
+                    of Intelligence.</h1>
+                <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 opacity-0 hero-fade">
+                    Bridging hardware logic and software performance. Specialized in ESP32, Firmware Design, and
+                    Interactive Web Experiences.
+                </p>
+                <div class="flex space-x-4 opacity-0 hero-fade">
+                    <a href="#projects"
+                        class="bg-primary hover:bg-primary/80 px-8 py-3 rounded-full font-semibold transition-all shadow-lg shadow-primary/20">View
+                        Projects</a>
+                    <a href="#contact"
+                        class="glass-card px-8 py-3 rounded-full font-semibold hover:bg-white/5 transition-all">Get in
+                        Touch</a>
                 </div>
             </div>
         </section>
 
-        <!-- SCENE 3: DESKTOP DEVELOPMENT (Growth) -->
-        <section class="scene" id="desktop-dev">
-            <div class="content panel-left">
-                <h2>Growth</h2>
-                <p class="lead">"Moved beyond the browser into desktop applications."</p>
-                <div class="tags">
-                    <span>System Interaction</span>
-                    <span>Desktop Apps</span>
-                    <span>Performance</span>
+        <!-- Expertise Section -->
+        <section id="expertise" class="min-h-screen py-24 px-6 md:px-24 bg-dark/50">
+            <h2 class="text-4xl font-bold mb-16 text-center">Expertise & <span class="text-primary">Skills</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl hover:border-primary/50 transition-all group">
+                    <div
+                        class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Embedded Systems</h3>
+                    <p class="text-slate-400 text-sm mb-6">Expertise in firmware development, hardware-to-cloud
+                        integration, and RTOS-based solutions.</p>
+                    <ul class="text-xs flex flex-wrap gap-2">
+                        <li class="bg-white/5 px-2 py-1 rounded">C++ / Arduino</li>
+                        <li class="bg-white/5 px-2 py-1 rounded">ESP32 & RTOS</li>
+                        <li class="bg-white/5 px-2 py-1 rounded">Firmware Design</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 rounded-2xl hover:border-secondary/50 transition-all group">
+                    <div
+                        class="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center mb-6 text-secondary group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Web Development</h3>
+                    <p class="text-slate-400 text-sm mb-6">Building robust full-stack applications and immersive 3D web
+                        experiences.</p>
+                    <ul class="text-xs flex flex-wrap gap-2">
+                        <li class="bg-white/5 px-2 py-1 rounded">Laravel / PHP</li>
+                        <li class="bg-white/5 px-2 py-1 rounded">React / Three.js</li>
+                        <li class="bg-white/5 px-2 py-1 rounded">PostgreSQL</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 rounded-2xl hover:border-white/30 transition-all group">
+                    <div
+                        class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Desktop Tools</h3>
+                    <p class="text-slate-400 text-sm mb-6">Developing cross-platform desktop applications for
+                        performance-critical systems.</p>
+                    <ul class="text-xs flex flex-wrap gap-2">
+                        <li class="bg-white/5 px-2 py-1 rounded">Python / PyQt</li>
+                        <li class="bg-white/5 px-2 py-1 rounded">System Interfacing</li>
+                        <li class="bg-white/5 px-2 py-1 rounded">UI/UX Design</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- SCENE 4: EMBEDDED SYSTEMS (Entry Level) -->
-        <section class="scene" id="embedded">
-            <div class="content centralized">
-                <h2>Learning</h2>
-                <p class="lead">"Currently learning embedded systems — hardware, sensors, and control logic."</p>
-                <p class="sub-text">Exploring, experimenting, building foundations.</p>
-                <div class="warning-badge">ENTRY LEVEL</div>
+        <!-- Projects Section -->
+        <section id="projects" class="min-h-screen py-24 px-6 md:px-24">
+            <h2 class="text-4xl font-bold mb-16 text-center">Featured <span
+                    class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Projects</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Project 1 -->
+                <div class="project-card group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-2xl aspect-video bg-slate-800 mb-6">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 group-hover:opacity-100 opacity-60 transition-opacity">
+                        </div>
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-6xl font-black text-white/5 pointer-events-none uppercase">
+                            Recruit</div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">Campus Recruitment
+                        System</h3>
+                    <p class="text-slate-400 mb-4">A complete ecosystem for streamlining college hiring using Laravel
+                        and PostgreSQL.</p>
+                    <div class="flex space-x-3">
+                        <span class="text-xs font-mono text-primary">#Laravel</span>
+                        <span class="text-xs font-mono text-secondary">#PostgreSQL</span>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card group cursor-pointer">
+                    <div
+                        class="relative overflow-hidden rounded-2xl aspect-video bg-slate-800 mb-6 border border-white/5">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-secondary/20 to-primary/20 group-hover:opacity-100 opacity-60 transition-opacity">
+                        </div>
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-6xl font-black text-white/5 pointer-events-none uppercase">
+                            Sensor</div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2 group-hover:text-secondary transition-colors">ESP32 Sensor Logger
+                    </h3>
+                    <p class="text-slate-400 mb-4">Firmware for high-precision sensor data collection and real-time
+                        monitoring.</p>
+                    <div class="flex space-x-3">
+                        <span class="text-xs font-mono text-primary">#CPP</span>
+                        <span class="text-xs font-mono text-secondary">#RTOS</span>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="project-card group cursor-pointer">
+                    <div
+                        class="relative overflow-hidden rounded-2xl aspect-video bg-slate-800 mb-6 border border-white/5">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 group-hover:opacity-100 opacity-60 transition-opacity">
+                        </div>
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-6xl font-black text-white/5 pointer-events-none uppercase">
+                            Desktop</div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2 group-hover:text-indigo-400 transition-colors">Python Performance
+                        Tool</h3>
+                    <p class="text-slate-400 mb-4">A high-performance desktop application built with Python and Qt for
+                        system diagnostics.</p>
+                    <div class="flex space-x-3">
+                        <span class="text-xs font-mono text-primary">#Python</span>
+                        <span class="text-xs font-mono text-secondary">#PyQt</span>
+                    </div>
+                </div>
+                <!-- Project 4 -->
+                <div class="project-card group cursor-pointer">
+                    <div
+                        class="relative overflow-hidden rounded-2xl aspect-video bg-slate-800 mb-6 border border-white/5">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-blue-500/10 group-hover:opacity-100 opacity-60 transition-opacity">
+                        </div>
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-6xl font-black text-white/5 pointer-events-none uppercase">
+                            3D Port</div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2 group-hover:text-teal-400 transition-colors">Immersive 3D
+                        Portfolio</h3>
+                    <p class="text-slate-400 mb-4">My personal portfolio (Wait, you are already here!) built with
+                        Three.js and GSAP.</p>
+                    <div class="flex space-x-3">
+                        <span class="text-xs font-mono text-primary">#ThreeJS</span>
+                        <span class="text-xs font-mono text-secondary">#GSAP</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- SCENE 5: PROJECTS (Core Portfolio) -->
-        <section class="scene" id="projects">
-            <div class="content centralized wide-panel">
-                <h2>Projects</h2>
-                <div class="projects-grid">
-                    <!-- Project placeholders, will be emphasized by 3D cards -->
-                    <div class="project-info">
-                        <h3>Portfolio v1</h3>
-                        <p>Web • Three.js</p>
-                        <div class="links">
-                            <a href="#" class="btn-text">View Code</a>
-                            <a href="#" class="btn-text">Demo</a>
+        <!-- Services Section -->
+        <section id="services" class="py-24 px-6 md:px-24 bg-dark/50">
+            <h2 class="text-4xl font-bold mb-16 text-center">Professional <span class="text-primary">Services</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-2 transition-transform">
+                    <h4 class="font-bold mb-3">Firmware Dev</h4>
+                    <p class="text-xs text-slate-400">Custom RTOS and bare-metal firmware solutions.</p>
+                </div>
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-2 transition-transform">
+                    <h4 class="font-bold mb-3">IoT Solutions</h4>
+                    <p class="text-xs text-slate-400">End-to-end connected device architecture.</p>
+                </div>
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-2 transition-transform">
+                    <h4 class="font-bold mb-3">Full-Stack Web</h4>
+                    <p class="text-xs text-slate-400">Scalable backends and reactive frontends.</p>
+                </div>
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-2 transition-transform">
+                    <h4 class="font-bold mb-3">UI/UX Design</h4>
+                    <p class="text-xs text-slate-400">Modern, minimalist interfaces for web & desktop.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 px-6 md:px-24">
+            <div class="glass-card p-12 rounded-3xl max-w-4xl mx-auto flex flex-col md:flex-row gap-12 items-center">
+                <div class="flex-1">
+                    <h2 class="text-4xl font-bold mb-6">Let's <span class="text-primary">Connect</span></h2>
+                    <p class="text-slate-400 mb-8">Ready to bring your hardware to life or build something amazing?
+                        Reach out and let's discuss your next project.</p>
+                    <div class="space-y-4 font-mono text-sm">
+                        <div class="flex items-center space-x-3 text-slate-300">
+                            <span class="text-primary">GitHub:</span>
+                            <a href="https://github.com/akhilzz" class="hover:text-primary underline">@akhilzz</a>
+                        </div>
+                        <div class="flex items-center space-x-3 text-slate-300">
+                            <span class="text-primary">LinkedIn:</span>
+                            <a href="https://linkedin.com/in/akhil-c-029376230"
+                                class="hover:text-primary underline">akhil-c</a>
                         </div>
                     </div>
-                    <div class="project-info">
-                        <h3>Desktop Tool</h3>
-                        <p>Python • Qt</p>
-                        <div class="links">
-                            <a href="#" class="btn-text">View Code</a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Sensor Logger</h3>
-                        <p>ESP32 • C++</p>
-                        <div class="links">
-                            <a href="#" class="btn-text">View Code</a>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- SCENE 6: BLOG (Learning Notes) -->
-        <section class="scene" id="blog">
-            <div class="content panel-right glass">
-                <h2>Learning Notes</h2>
-                <p>"Documenting my learning journey."</p>
-                <ul class="clean-list">
-                    <li>Understanding Memory Management</li>
-                    <li>RTOS basics for beginners</li>
-                    <li>From JS to C++: A transition</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- SCENE 7: RESUME (Professional) -->
-        <section class="scene" id="resume">
-            <div class="content centralized glass">
-                <h2>Professional Profile</h2>
-                <div class="resume-actions">
-                    <button class="btn-primary">Download PDF</button>
-                    <button class="btn-secondary">View Resume</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- SCENE 8: CONTACT (Connection) -->
-        <section class="scene" id="contact">
-            <div class="content centralized bg-transparent">
-                <h2>Let's Connect</h2>
-                <p>"Open to learning, collaboration, and opportunities."</p>
-                <form class="simple-form">
-                    <input type="text" placeholder="Name" required>
-                    <input type="email" placeholder="Email" required>
-                    <textarea placeholder="Message" rows="3"></textarea>
-                    <button type="submit" class="btn-primary">Send</button>
+                <form class="flex-1 space-y-4 w-full">
+                    <input type="text" placeholder="Name"
+                        class="w-full bg-white/5 border border-white/10 px-4 py-3 rounded-lg focus:border-primary focus:outline-none transition-colors">
+                    <input type="email" placeholder="Email"
+                        class="w-full bg-white/5 border border-white/10 px-4 py-3 rounded-lg focus:border-primary focus:outline-none transition-colors">
+                    <textarea placeholder="Message" rows="4"
+                        class="w-full bg-white/5 border border-white/10 px-4 py-3 rounded-lg focus:border-primary focus:outline-none transition-colors"></textarea>
+                    <button type="submit"
+                        class="w-full bg-primary hover:bg-primary/80 py-4 rounded-lg font-bold transition-all">Send
+                        Message</button>
                 </form>
-                <div class="socials">
-                    <a href="#">GitHub</a>
-                    <a href="#">LinkedIn</a>
-                    <a href="#">Instagram</a>
-                </div>
             </div>
         </section>
-    </div>
 
-    <script type="module" src="./src/main.js"></script>
+        <footer class="py-12 border-t border-white/5 text-center text-slate-500 text-sm">
+            &copy; 2026 Akhil C. Built with Three.js & Passion.
+        </footer>
+    </main>
+
+    <!-- Dependencies -->
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Main Script -->
+    <script type="module" src="main.js"></script>
 </body>
 
 </html>
