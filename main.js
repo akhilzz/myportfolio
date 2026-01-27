@@ -103,6 +103,19 @@ document.querySelectorAll('a, button, .project-card').forEach(el => {
     });
 });
 
+// --- SCROLL PROGRESS BAR ---
+const progressBar = document.createElement('div');
+progressBar.className = 'fixed top-0 left-0 h-1 bg-gradient-to-r from-primary to-secondary z-[100] transition-all duration-300';
+progressBar.style.width = '0%';
+document.body.appendChild(progressBar);
+
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    progressBar.style.width = scrolled + '%';
+});
+
 // --- GSAP ANIMATIONS & SCROLL EFFECTS ---
 gsap.registerPlugin(ScrollTrigger);
 
@@ -116,7 +129,7 @@ gsap.to('.hero-fade', {
     delay: 0.5
 });
 
-// Scroll Based Rotation and Motion
+// 3D Motion on Scroll
 gsap.to(group.rotation, {
     y: Math.PI * 4,
     scrollTrigger: {
@@ -137,30 +150,55 @@ gsap.to(camera.position, {
     }
 });
 
-// Expertise Cards Animation
-gsap.from('.glass-card', {
-    scrollTrigger: {
-        trigger: "#expertise",
-        start: "top 80%",
-    },
-    y: 100,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.2,
-    ease: "power3.out"
+// Individual Section Reveal Animations
+const revealSections = [
+    { id: '#expertise', cards: '.glass-card' },
+    { id: '#projects', cards: '.project-card' },
+    { id: '#resume', cards: '.glass-card' },
+    { id: '#services', cards: '.glass-card' },
+    { id: '#mentorship', cards: '.glass-card' }
+];
+
+revealSections.forEach(section => {
+    // Animate Titles
+    gsap.from(`${section.id} h2`, {
+        scrollTrigger: {
+            trigger: `${section.id} h2`,
+            start: "top 95%",
+            once: true
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+    });
+
+    // Animate Cards with a more sensitive trigger
+    gsap.from(`${section.id} ${section.cards}`, {
+        scrollTrigger: {
+            trigger: section.id,
+            start: "top 90%", // Fire as soon as section top is near bottom
+            once: true
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out"
+    });
 });
 
-// Mentorship Cards Animation
-gsap.from('#mentorship .glass-card', {
-    scrollTrigger: {
-        trigger: "#mentorship",
-        start: "top 80%",
-    },
-    x: -50,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.3,
-    ease: "power2.out"
+// Fallback: Ensure everything is visible after a delay if GSAP fails
+setTimeout(() => {
+    gsap.to('.glass-card, .project-card, h2', { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, overwrite: 'auto' });
+    console.log("Visibility fallback triggered.");
+}, 3000);
+
+console.log("Portfolio reveal animations initialized.");
+
+// Refresh triggers after content loads
+window.addEventListener('load', () => {
+    ScrollTrigger.refresh();
 });
 
 // --- ANIMATION LOOP ---
@@ -175,7 +213,13 @@ const animate = () => {
     group.position.x += (mouseX * 2 - group.position.x) * 0.05;
     group.position.y += (mouseY * 2 - group.position.y) * 0.05;
 
-    particlesMesh.rotation.y += 0.001;
+    // Smoothing
+    innerCore.material.emissiveIntensity = 1 + Math.sin(Date.now() * 0.002) * 1;
+
+    // Multi-color shift based on scroll (with safety check)
+    const scrollMax = document.body.scrollHeight - window.innerHeight;
+    const scrollPercent = scrollMax > 0 ? window.scrollY / scrollMax : 0;
+    pointLight.color.setHSL(0.5 + scrollPercent * 0.2, 0.8, 0.5);
 
     renderer.render(scene, camera);
 };
